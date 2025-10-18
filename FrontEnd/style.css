@@ -1,24 +1,21 @@
-/* style.css */
-
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body and background setup */
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+  background-color: black;
+  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* Add background image using ::before for better control */
+/* Background image */
 body::before {
   content: "";
   position: fixed;
@@ -27,14 +24,14 @@ body::before {
   width: 100vw;
   height: 100vh;
   background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* dark overlay */
-    url('Background.png'); /* replace with actual image path */
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('Background.png'); /* your image path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  filter: brightness(0.7); /* further dims the background */
-  animation: moveBackground 5s ease-in-out infinite alternate;
+  filter: brightness(0.8);
+  animation: moveBackground 6s ease-in-out infinite alternate;
 }
 
 @keyframes moveBackground {
@@ -44,6 +41,88 @@ body::before {
   }
   100% {
     background-position: center 10%;
-    transform: scale(1.05); /* subtle zoom */
+    transform: scale(1.05);
   }
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #ddd;
+}
+
+/* Sections */
+section {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 10px 20px;
+}
+
+/* Headings */
+h3 {
+  margin-top: 25px;
+  font-size: 1.3rem;
+  color: #f2f2f2;
+}
+
+/* Paragraphs */
+p {
+  margin: 12px 0;
+  text-align: justify;
+  color: #f5f5f5;
+}
+
+/* Form styling */
+form {
+  margin-top: 25px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+select {
+  margin: 8px 0;
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+input[type="submit"] {
+  margin-top: 15px;
+  padding: 8px 20px;
+  border: none;
+  background-color: #0078d7;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #005fa3;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 15px;
+  color: #ccc;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }

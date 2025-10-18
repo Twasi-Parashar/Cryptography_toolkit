@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My First Page</title>
+    <meta charset="UTF-8">
+    <title>CryptoLab</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>CryptoLab</h1>
-  <h2>Test and Learn Cryptography Algorithms</h2>
+  <div class="content">
+    <header>
+      <h1>CryptoLab</h1>
+      <h2>Test and Learn Cryptography Algorithms</h2>
+      <hr>
+    </header>
 
-  <hr>
+    <section id="about">
+      <h3>About This Website</h3>
+      <p>
+        Welcome to <strong>CryptoLab</strong> — an educational platform for students to explore and test various
+        cryptographic algorithms. This website allows you to perform both <strong>encryption</strong> and 
+        <strong>decryption</strong> operations for different classical and modern cryptography techniques.
+      </p>
 
-  <h3>About This Website</h3>
-  <p>
-    Welcome to <strong>CryptoLab</strong> — an educational platform for students to explore and test various
-    cryptographic algorithms. This website allows you to perform both <strong>encryption</strong> and 
-    <strong>decryption</strong> operations for different classical and modern cryptography techniques.
-  </p>
+      <p>
+        Classical algorithms such as <strong>Caesar Cipher</strong>, <strong>Affine Cipher</strong>,
+        <strong>Playfair Cipher</strong>, <strong>Hill Cipher</strong>, <strong>Rail Fence Cipher</strong>,
+        <strong>Columnar Transposition Cipher</strong>, and <strong>Vigenère Cipher</strong> demonstrate the
+        foundations of cryptography.
+      </p>
 
-  <p>
-    Classical algorithms such as <strong>Caesar Cipher</strong>, <strong>Affine Cipher</strong>,
-    <strong>Playfair Cipher</strong>, <strong>Hill Cipher</strong>, <strong>Rail Fence Cipher</strong>,
-    <strong>Columnar Transposition Cipher</strong>, and <strong>Vigenère Cipher</strong> demonstrate the
-    foundations of cryptography.
-  </p>
+      <p>
+        Modern algorithms such as <strong>SDES</strong>, <strong>DES</strong>, and <strong>AES</strong> represent
+        advanced encryption standards used in real-world data security systems.
+      </p>
+      <hr>
+    </section>
 
-  <p>
-    Modern algorithms such as <strong>SDES</strong>, <strong>DES</strong>, and <strong>AES</strong> represent
-    advanced encryption standards used in real-world data security systems.
-  </p>
+    <section id="options">
+      <form action="#" method="get">
+        <h3>Select Operation</h3>
+        <label><input type="radio" name="mode" value="encrypt" required> Encryption</label>
+        <label><input type="radio" name="mode" value="decrypt"> Decryption</label>
 
-  <hr>
+        <h3>Select Algorithm</h3>
 
-  <form action="#" method="get">
-    <h3>Select Operation</h3>
-    <input type="radio" id="encrypt" name="mode" value="encrypt" required>
-    <label for="encrypt">Encryption</label><br>
+        <p><strong>Classical Algorithms</strong></p>
+        <select name="classical" id="classical">
+          <option value="">-- Choose a classical algorithm --</option>
+          <option value="caesar">Caesar Cipher</option>
+          <option value="affine">Affine Cipher</option>
+          <option value="playfair">Playfair Cipher</option>
+          <option value="hill">Hill Cipher</option>
+          <option value="railfence">Rail Fence Cipher</option>
+          <option value="columnar">Columnar Transposition Cipher</option>
+          <option value="vigenere">Vigenère Cipher</option>
+        </select>
 
-    <input type="radio" id="decrypt" name="mode" value="decrypt">
-    <label for="decrypt">Decryption</label><br><br>
+        <p><strong>Modern Algorithms</strong></p>
+        <select name="modern" id="modern">
+          <option value="">-- Choose a modern algorithm --</option>
+          <option value="sdes">Simplified DES (SDES)</option>
+          <option value="des">DES (Data Encryption Standard)</option>
+          <option value="aes">AES (Advanced Encryption Standard)</option>
+        </select>
 
-    <h3>Select Algorithm</h3>
-    <p><strong>Classical Algorithms</strong></p>
-    <select name="classical" id="classical">
-      <option value="">-- Choose a classical algorithm --</option>
-      <option value="caesar">Caesar Cipher</option>
-      <option value="affine">Affine Cipher</option>
-      <option value="playfair">Playfair Cipher</option>
-      <option value="hill">Hill Cipher</option>
-      <option value="railfence">Rail Fence Cipher</option>
-      <option value="columnar">Columnar Transposition Cipher</option>
-      <option value="vigenere">Vigenère Cipher</option>
-    </select>
+        <br><br>
+        <input type="submit" value="Continue">
+      </form>
+    </section>
 
-    <br><br>
-
-    <p><strong>Modern Algorithms</strong></p>
-    <select name="modern" id="modern">
-      <option value="">-- Choose a modern algorithm --</option>
-      <option value="sdes">Simplified DES (SDES)</option>
-      <option value="des">DES (Data Encryption Standard)</option>
-      <option value="aes">AES (Advanced Encryption Standard)</option>
-    </select>
-
-    <br><br>
-
-    <input type="submit" value="Continue">
-  </form>
-
-  <hr>
-
-  <footer>
-    <p>© 2025 CryptoLab | Designed for Students Exploring Cryptography</p>
-  </footer>
+    <footer>
+      <hr>
+      <p>© 2025 CryptoLab | Designed for Students Exploring Cryptography</p>
+    </footer>
+  </div>
 </body>
 </html>
