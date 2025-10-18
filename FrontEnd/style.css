@@ -1,0 +1,27 @@
+/* style.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-image: url('Background.png'); /* replace with your image path */
+  background-size: cover;         /* makes the image cover the whole screen */
+  background-position: center;    /* centers the image */
+  background-repeat: no-repeat;   /* prevents tiling */
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+  padding: 2rem;
+  border-radius: 10px;
+}
