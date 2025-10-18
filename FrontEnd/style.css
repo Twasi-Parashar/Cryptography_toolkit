@@ -34,7 +34,7 @@ body::before {
   background-repeat: no-repeat;
   z-index: -1;
   filter: brightness(0.7); /* further dims the background */
-  animation: moveBackground 2s ease-in-out infinite alternate;
+  animation: moveBackground 5s ease-in-out infinite alternate;
 }
 
 @keyframes moveBackground {
