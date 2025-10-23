@@ -10,13 +10,9 @@ export const caesarEncrypt = (req, res) => {
         }
 
         const encryptedText = encrypt(text, shift);
-        res.status(200).json({
-            original: text,
-            shift,
-            encryptedText
-        });
+        res.status(200).json({ result: encryptedText });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Error in processing." }); // Changed to 'error' for consistency
     }
 };
 
@@ -29,12 +25,8 @@ export const caesarDecrypt = (req, res) => {
         }
 
         const decryptedText = decrypt(text, shift);
-        res.status(200).json({
-            encrypted: text,
-            shift,
-            decryptedText
-        });
+        res.status(200).json({ result: decryptedText });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Error in processing." }); // Changed to 'error' for consistency
     }
 };

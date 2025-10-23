@@ -4,8 +4,7 @@ import { encryptText, decryptText } from '../controllers/affine/textController.j
 
 const router = express.Router();
 
-// Text encryption/decryption endpoints
-router.post('/text/encrypt', encryptText);
-router.post('/text/decrypt', decryptText);
+router.post('/encrypt', encryptText);
+router.post('/decrypt', decryptText);
 
 export default router;

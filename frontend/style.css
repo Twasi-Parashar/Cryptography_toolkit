@@ -1,0 +1,550 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    --accent-gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-white: #ffffff;
+    --shadow-high: 0 10px 40px rgba(0, 0, 0, 0.3);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius-lg: 16px;
+    /* Reduced from 20px */
+    --border-radius-md: 10px;
+    /* Reduced from 12px */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: var(--primary-gradient);
+    background-attachment: fixed;
+    color: var(--text-white);
+    margin: 0;
+    padding: 15px;
+    /* Reduced from 20px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.5;
+    /* Reduced from 1.6 */
+    font-size: 14px;
+    /* Base font size reduced */
+}
+
+/* High visibility header - COMPACT */
+header {
+    text-align: center;
+    margin: 20px 0;
+    /* Reduced from 30px */
+    padding: 0 15px;
+    /* Reduced from 20px */
+    width: 100%;
+    max-width: 500px;
+    /* Reduced from 600px */
+}
+
+h1 {
+    margin-bottom: 10px;
+    /* Reduced from 15px */
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    /* Reduced sizes */
+    font-weight: 800;
+    color: var(--text-white);
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    /* Reduced from 1.2 */
+}
+
+.subtitle {
+    font-size: 1rem;
+    /* Reduced from 1.2rem */
+    color: var(--text-white);
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    opacity: 0.95;
+}
+
+/* High contrast form container - COMPACT */
+.form-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    border: 2px solid var(--glass-border);
+    padding: 25px 20px;
+    /* Reduced from 40px 35px */
+    border-radius: var(--border-radius-lg);
+    width: min(95%, 480px);
+    /* Reduced from 550px */
+    margin: 15px 0;
+    /* Reduced from 20px */
+    box-shadow:
+        var(--glass-shadow),
+        var(--shadow-high),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    /* High visibility border effect */
+    position: relative;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--accent-gradient);
+    border-radius: calc(var(--border-radius-lg) + 2px);
+    z-index: -1;
+    opacity: 0.8;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0.9;
+    }
+}
+
+/* High contrast form elements - COMPACT */
+.form-group {
+    margin-bottom: 18px;
+    /* Reduced from 25px */
+}
+
+label {
+    display: block;
+    margin: 0 0 6px 0;
+    /* Reduced from 10px */
+    font-weight: 600;
+    font-size: 0.9rem;
+    /* Reduced from 1rem */
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.2px;
+    /* Reduced from 0.3px */
+}
+
+/* High visibility input fields - COMPACT */
+textarea,
+input,
+select {
+    width: 100%;
+    padding: 12px 14px;
+    /* Reduced from 16px 18px */
+    border: 2px solid #e2e8f0;
+    border-radius: var(--border-radius-md);
+    outline: none;
+    background: #ffffff;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    /* Reduced from 1rem */
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+
+    /* High contrast placeholder */
+    &::placeholder {
+        color: #718096;
+        font-weight: 400;
+        font-size: 0.85rem;
+        /* Smaller placeholder */
+    }
+}
+
+/* Make textarea more compact */
+textarea {
+    min-height: 80px;
+    /* Reduced height */
+    resize: vertical;
+}
+
+/* High visibility focus states */
+textarea:focus,
+input:focus,
+select:focus {
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow:
+        0 0 0 3px rgba(102, 126, 234, 0.15),
+        /* Reduced from 4px */
+        0 3px 8px rgba(0, 0, 0, 0.1),
+        /* Reduced from 4px 12px */
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    /* Reduced from -2px */
+}
+
+/* High contrast button group - COMPACT */
+.btn-group {
+    margin-top: 20px;
+    /* Reduced from 30px */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    /* Reduced from 140px */
+    gap: 10px;
+    /* Reduced from 15px */
+    align-items: center;
+}
+
+/* High visibility buttons - COMPACT */
+button {
+    position: relative;
+    padding: 12px 18px;
+    /* Reduced from 16px 24px */
+    border: none;
+    border-radius: var(--border-radius-md);
+    background: var(--secondary-gradient);
+    color: var(--text-white);
+    font-weight: 700;
+    font-size: 0.9rem;
+    /* Reduced from 1rem */
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
+    /* Reduced from 0.5px */
+
+    /* High contrast shadow */
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.2),
+        /* Reduced from 4px 15px */
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Reduced from 2px 4px */
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
+    transition: left 0.6s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    /* Reduced from -3px */
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        /* Reduced from 8px 25px */
+        0 2px 5px rgba(0, 0, 0, 0.15);
+    /* Reduced from 4px 8px */
+    background: linear-gradient(135deg, #ff8e8e 0%, #f57c3d 100%);
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        /* Reduced from 4px 12px */
+        0 1px 2px rgba(0, 0, 0, 0.1);
+    /* Reduced from 2px 4px */
+}
+
+/* Secondary button variant */
+button.secondary {
+    background: var(--accent-gradient);
+    color: var(--text-white);
+}
+
+button.secondary:hover {
+    background: linear-gradient(135deg, #4aeaff 0%, #5d8fe0 100%);
+}
+
+/* High visibility result box - COMPACT */
+.result-box {
+    margin-top: 20px;
+    /* Reduced from 30px */
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    padding: 18px;
+    /* Reduced from 25px */
+    border-radius: var(--border-radius-md);
+    word-wrap: break-word;
+    position: relative;
+    animation: slideInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* High contrast text */
+    color: var(--text-primary);
+    font-weight: 500;
+    line-height: 1.4;
+    /* Reduced from 1.6 */
+    font-size: 0.9rem;
+    /* Reduced text size */
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.1),
+        /* Reduced from 4px 20px */
+        0 1px 4px rgba(0, 0, 0, 0.05);
+    /* Reduced from 2px 8px */
+    min-height: 80px;
+    /* Reduced height */
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        /* Reduced from 30px */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    /* Reduced from 5px */
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 2px 0 0 2px;
+}
+
+/* Success state with high visibility */
+.result-box.success {
+    border-color: #48bb78;
+    background: #f0fff4;
+}
+
+.result-box.success::before {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+/* Error state with high visibility */
+.result-box.error {
+    border-color: #f56565;
+    background: #fff5f5;
+}
+
+.result-box.error::before {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+}
+
+/* Loading animation with high visibility - COMPACT */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    /* Reduced from 24px */
+    height: 20px;
+    /* Reduced from 24px */
+    margin: -10px 0 0 -10px;
+    /* Adjusted for smaller size */
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    /* Reduced from 3px */
+    border-top: 2px solid var(--text-white);
+    /* Reduced from 3px */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* High contrast status indicators - COMPACT */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    /* Reduced from 8px */
+    padding: 6px 12px;
+    /* Reduced from 8px 16px */
+    border-radius: 16px;
+    /* Reduced from 20px */
+    font-weight: 600;
+    font-size: 0.8rem;
+    /* Reduced from 0.9rem */
+    margin-bottom: 10px;
+    /* Reduced from 15px */
+}
+
+.status-success {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.status-error {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #feb2b2;
+}
+
+/* Responsive design with maintained visibility - COMPACT */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        /* Reduced from 15px */
+    }
+
+    .form-container {
+        padding: 20px 18px;
+        /* Further reduced */
+        margin: 10px 0;
+        /* Reduced from 15px */
+    }
+
+    .btn-group {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        /* Reduced from 12px */
+    }
+
+    button {
+        padding: 10px 16px;
+        /* Further reduced */
+        font-size: 0.85rem;
+        /* Smaller on mobile */
+    }
+
+    textarea,
+    input,
+    select {
+        padding: 10px 12px;
+        /* Further reduced */
+        font-size: 0.85rem;
+        /* Smaller on mobile */
+    }
+
+    .result-box {
+        padding: 15px;
+        /* Further reduced */
+        margin-top: 15px;
+        /* Reduced */
+        font-size: 0.85rem;
+        /* Smaller on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 18px 15px;
+        /* Further reduced */
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        /* Reduced from 2.2rem */
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        /* Smaller on very small screens */
+    }
+
+    .result-box {
+        padding: 12px;
+        /* Further reduced */
+        min-height: 60px;
+        /* More compact */
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --glass-bg: #ffffff;
+        --glass-border: #000000;
+        --text-primary: #000000;
+    }
+
+    .form-container {
+        border-width: 2px;
+        /* Reduced from 3px */
+    }
+
+    textarea,
+    input,
+    select {
+        border-width: 2px;
+        border-color: #000000;
+    }
+
+    button {
+        border: 1px solid #000000;
+        /* Reduced from 2px */
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles with high visibility */
+@media print {
+    .form-container {
+        background: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+        /* Reduced from 2px */
+        box-shadow: none !important;
+    }
+
+    button {
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: 1px solid #000000 !important;
+    }
+
+    .result-box {
+        background: #f8f8f8 !important;
+        border: 1px solid #000000 !important;
+        /* Reduced from 2px */
+    }
+}

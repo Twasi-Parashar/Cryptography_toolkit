@@ -1,148 +1,106 @@
 // backend/algorithms/playfairCipher.js
 
-// 🔹 Generate 5x5 Playfair matrix
-const generateMatrix = (key) => {
-    key = key.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
-    let seen = new Set();
-    let matrix = [];
+// Convert to lowercase and remove spaces
+function preprocess(str) {
+    return str.toLowerCase().replace(/\s/g, '').replace(/j/g, 'i');
+}
 
-    // Add key characters first
-    for (let char of key) {
-        if (!seen.has(char)) {
-            matrix.push(char);
-            seen.add(char);
+// Generate 5x5 key table
+function generateKeyTable(key) {
+    key = preprocess(key);
+    let keyT = Array.from({ length: 5 }, () => Array(5));
+    let hash = Array(26).fill(0);
+
+    for (let ch of key) {
+        if (ch !== 'j') hash[ch.charCodeAt(0) - 97] = 2;
+    }
+    hash['j'.charCodeAt(0) - 97] = 1;
+
+    let i = 0, j = 0;
+    for (let k = 0; k < key.length; k++) {
+        if (hash[key.charCodeAt(k) - 97] === 2) {
+            hash[key.charCodeAt(k) - 97]--;
+            keyT[i][j++] = key[k];
+            if (j === 5) { i++; j = 0; }
         }
     }
 
-    // Add remaining alphabet (excluding J, since we replaced it with I)
-    for (let char of "ABCDEFGHIKLMNOPQRSTUVWXYZ") {
-        if (!seen.has(char)) {
-            matrix.push(char);
-            seen.add(char);
+    for (let k = 0; k < 26; k++) {
+        if (hash[k] === 0) {
+            keyT[i][j++] = String.fromCharCode(k + 97);
+            if (j === 5) { i++; j = 0; }
         }
     }
+    return keyT;
+}
 
-    return Array.from({ length: 5 }, (_, i) => matrix.slice(i * 5, i * 5 + 5));
-};
-
-// 🔹 Find character position in matrix
-const findPosition = (matrix, char) => {
-    char = char === 'J' ? 'I' : char; // Handle J as I
+// Find position of letters in key table
+function search(keyT, a, b, arr) {
+    if (a === 'j') a = 'i';
+    if (b === 'j') b = 'i';
     for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 5; j++) {
-            if (matrix[i][j] === char) return [i, j];
+            if (keyT[i][j] === a) { arr[0] = i; arr[1] = j; }
+            else if (keyT[i][j] === b) { arr[2] = i; arr[3] = j; }
         }
     }
-    return null;
-};
+}
 
-// 🔹 Preprocess text into valid digraphs
-const prepareText = (text) => {
-    text = text.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
-    let prepared = '';
-    let i = 0;
+// Prepare plaintext (ensure even length)
+function prepareText(str) {
+    if (str.length % 2 !== 0) str += 'z';
+    return str;
+}
 
-    while (i < text.length) {
-        let a = text[i];
-        let b = text[i + 1];
-
-        if (!b) {
-            // Odd length → add X
-            prepared += a + 'X';
-            break;
-        } else if (a === b) {
-            // Same letters → insert X
-            prepared += a + 'X';
-            i++; // Only consume one character
+// Encrypt text
+function encryptText(str, keyT) {
+    let arr = Array(4);
+    let result = str.split('');
+    for (let i = 0; i < str.length; i += 2) {
+        search(keyT, result[i], result[i + 1], arr);
+        if (arr[0] === arr[2]) {
+            result[i] = keyT[arr[0]][(arr[1] + 1) % 5];
+            result[i + 1] = keyT[arr[0]][(arr[3] + 1) % 5];
+        } else if (arr[1] === arr[3]) {
+            result[i] = keyT[(arr[0] + 1) % 5][arr[1]];
+            result[i + 1] = keyT[(arr[2] + 1) % 5][arr[1]];
         } else {
-            prepared += a + b;
-            i += 2; // Consume both characters
+            result[i] = keyT[arr[0]][arr[3]];
+            result[i + 1] = keyT[arr[2]][arr[1]];
         }
     }
+    return result.join('');
+}
 
-    // Ensure even length
-    if (prepared.length % 2 !== 0) {
-        prepared += 'X';
-    }
-
-    return prepared;
-};
-
-// 🔹 Encrypt function
-export const encrypt = (text, key) => {
-    if (!text || !key) throw new Error('Text and key are required');
-
-    let matrix = generateMatrix(key);
-    let prepared = prepareText(text);
-    let res = '';
-
-    for (let i = 0; i < prepared.length; i += 2) {
-        let a = prepared[i], b = prepared[i + 1];
-        let posA = findPosition(matrix, a);
-        let posB = findPosition(matrix, b);
-
-        if (!posA || !posB) {
-            throw new Error(`Invalid characters in text: ${a}${b}`);
-        }
-
-        let [r1, c1] = posA;
-        let [r2, c2] = posB;
-
-        if (r1 === r2) {
-            // Same row: shift right
-            res += matrix[r1][(c1 + 1) % 5] + matrix[r2][(c2 + 1) % 5];
-        } else if (c1 === c2) {
-            // Same column: shift down
-            res += matrix[(r1 + 1) % 5][c1] + matrix[(r2 + 1) % 5][c2];
+// Decrypt text
+function decryptText(str, keyT) {
+    let arr = Array(4);
+    let result = str.split('');
+    for (let i = 0; i < str.length; i += 2) {
+        search(keyT, result[i], result[i + 1], arr);
+        if (arr[0] === arr[2]) {
+            result[i] = keyT[arr[0]][(arr[1] - 1 + 5) % 5];
+            result[i + 1] = keyT[arr[0]][(arr[3] - 1 + 5) % 5];
+        } else if (arr[1] === arr[3]) {
+            result[i] = keyT[(arr[0] - 1 + 5) % 5][arr[1]];
+            result[i + 1] = keyT[(arr[2] - 1 + 5) % 5][arr[1]];
         } else {
-            // Rectangle: swap columns
-            res += matrix[r1][c2] + matrix[r2][c1];
+            result[i] = keyT[arr[0]][arr[3]];
+            result[i + 1] = keyT[arr[2]][arr[1]];
         }
     }
-    return res;
-};
+    return result.join('');
+}
 
-// 🔹 Decrypt function
-export const decrypt = (text, key) => {
-    if (!text || !key) throw new Error('Text and key are required');
-    if (text.length % 2 !== 0) throw new Error('Encrypted text must have even length');
+// Export functions for backend use
+export function encrypt(text, key) {
+    text = prepareText(preprocess(text));
+    const keyT = generateKeyTable(key);
+    return encryptText(text, keyT);
+}
 
-    let matrix = generateMatrix(key);
-    let res = '';
-
-    for (let i = 0; i < text.length; i += 2) {
-        let a = text[i], b = text[i + 1];
-        let posA = findPosition(matrix, a);
-        let posB = findPosition(matrix, b);
-
-        if (!posA || !posB) {
-            throw new Error(`Invalid characters in encrypted text: ${a}${b}`);
-        }
-
-        let [r1, c1] = posA;
-        let [r2, c2] = posB;
-
-        if (r1 === r2) {
-            // Same row: shift left
-            res += matrix[r1][(c1 + 4) % 5] + matrix[r2][(c2 + 4) % 5];
-        } else if (c1 === c2) {
-            // Same column: shift up
-            res += matrix[(r1 + 4) % 5][c1] + matrix[(r2 + 4) % 5][c2];
-        } else {
-            // Rectangle: swap columns
-            res += matrix[r1][c2] + matrix[r2][c1];
-        }
-    }
-
-    // Remove padding X if it was added during encryption
-    if (res.endsWith('X')) {
-        res = res.slice(0, -1);
-    }
-
-    return res;
-};
-
-// Optional: Helper function to format output with spaces
-export const formatPlayfairOutput = (text, groupSize = 4) => {
-    return text.match(new RegExp(`.{1,${groupSize}}`, 'g')).join(' ');
-};
+export function decrypt(cipher, key) {
+    cipher = preprocess(cipher);
+    const keyT = generateKeyTable(key);
+    return decryptText(cipher, keyT);
+}

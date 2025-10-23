@@ -1,12 +1,14 @@
+// backend/routes/hillRoutes.js
+
 import express from "express";
-import { encryptText, decryptText } from "../controllers/playfair/textController.js";
+import { encryptText, decryptText } from "../controllers/hill/textController.js";
 
 const router = express.Router();
 
-// POST /api/playfair/encrypt
+// POST /api/hill/encrypt
 router.post("/encrypt", encryptText);
 
-// POST /api/playfair/decrypt
+// POST /api/hill/decrypt
 router.post("/decrypt", decryptText);
 
 export default router;

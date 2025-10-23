@@ -5,9 +5,9 @@ import { caesarEncrypt, caesarDecrypt } from "../controllers/caesar/textControll
 const router = express.Router();
 
 // Route for encryption
-router.post("/text/encrypt", caesarEncrypt);
+router.post("/encrypt", caesarEncrypt);
 
 // Route for decryption
-router.post("/text/decrypt", caesarDecrypt);
+router.post("/decrypt", caesarDecrypt);
 
 export default router;
